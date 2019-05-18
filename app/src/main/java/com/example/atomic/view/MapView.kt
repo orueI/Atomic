@@ -15,6 +15,7 @@ import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.ArrayListCustom
 import com.example.atomic.utils.l
 import com.example.atomic.utils.toGlobalCoordinate
+import com.example.atomic.utils.toGlobalCoordinateXY
 import org.mockito.Mockito.mock
 
 
@@ -69,7 +70,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         l("onTouch")
-        logicClicks.onClick(XY(event!!.x.toInt(), event.y.toInt()), this)
+        logicClicks.onClick(XY(event!!.x.toInt(), event.y.toInt()))
 //        invalidate()
         return false
     }
@@ -79,7 +80,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val list = CurrentMap.getCurrentMap().listMap
         for (i in list) {
             for (cell in i) {
-                drawWallOrCell(canvas, cell.xy, cell.passability)
+                drawWallOrCell(canvas, cell.xy.toGlobalCoordinateXY(), cell.passability)
             }
         }
     }
@@ -111,8 +112,8 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val mPath = Path()
         mPaint.color = Color.YELLOW
         mPath.addCircle(
-            (vector.xy.y.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
             (vector.xy.x.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
+            (vector.xy.y.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
             (sideOfSquare / 2.5).toFloat(),
             Direction.CCW
         )
@@ -143,10 +144,10 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         else
             mPaint.color = Color.BLACK
 
-        rect.left = xy.x.toGlobalCoordinate()
-        rect.top = xy.y.toGlobalCoordinate()
-        rect.right = xy.x.toGlobalCoordinate() + sideOfSquare
-        rect.bottom = xy.y.toGlobalCoordinate() + sideOfSquare
+        rect.left = xy.x
+        rect.top = xy.y
+        rect.right = xy.x + sideOfSquare
+        rect.bottom = xy.y + sideOfSquare
         canvas?.drawRect(rect, mPaint)
     }
 
@@ -191,30 +192,17 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }                       //It's litter
 
     fun createListMapMock(): ArrayListCustom<ArrayList<Wall>> {
-        val list = ArrayListCustom<ArrayList<Wall>>(object : CallBack {
-            override fun callBack() {
-            }
-        })
-        val list0 = ArrayList<Wall>()
-        for (i1 in 0..9) {
-            list0.add(Wall(false, 0 * 10 + i1, XY(0, i1)))
-        }
-        list.add(list0)
-        for (i in 0..7) {
+        val list = ArrayListCustom<ArrayList<Wall>>(null)
+        for (i in 0..9) {
             val list1 = ArrayList<Wall>()
             for (i1 in 0..9) {
-                if (i1 == 0 || i1 == 9)
-                    list1.add(Wall(false, i * 10 + i1, XY(i, i1)))
-                else
+//                if (i1 == 0 || i1 == 9)
+//                    list1.add(Wall(false, i * 10 + i1, XY(i, i1)))
+//                else
                 list1.add(Wall(true, i * 10 + i1, XY(i, i1)))
             }
             list.add(list1)
         }
-        val list2 = ArrayList<Wall>()
-        for (i1 in 0..9) {
-            list2.add(Wall(false, 9 * 10 + i1, XY(9, i1)))
-        }
-        list.add(list2)
         return list
     }        //It's litter
 

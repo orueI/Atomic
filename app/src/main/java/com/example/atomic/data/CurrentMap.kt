@@ -39,13 +39,13 @@ class CurrentMap:CallBack {
     var view: InterfaceMapView? = null
 
 
-    fun getLayerPassability(): ArrayList<ArrayList<Wall>> {
-        val list = ArrayList<ArrayList<Wall>>(listMap)
-        for (i in listAtoms){
-            list[i.xy.y][i.xy.x].passability = false
-        }
-        return list
-    }
+//    fun getLayerPassability(): ArrayList<ArrayList<Wall>> {
+//        val list = ArrayList<ArrayList<Wall>>(listMap)
+////        for (i in listAtoms){
+////            list[i.xy.y][i.xy.x].passability = false
+////        }
+//        return list
+//    }
 
     fun getMapOneList(): ArrayList<Wall> {
         val list = ArrayList<Wall>()
@@ -57,8 +57,11 @@ class CurrentMap:CallBack {
         return list
     }
 
-//    private var currentMap: CurrentMap? = null
-//    fun getcurrentMap():CurrentMap = currentMap?:CurrentMap()
+    fun isPassability(xy:XY):Boolean =
+        if (listMap[xy.y][xy.x].passability==false) false
+    else listAtoms.find { it.xy.equals(xy) } == null
+
+
     companion object {
         private var currentMap: CurrentMap? = null
 

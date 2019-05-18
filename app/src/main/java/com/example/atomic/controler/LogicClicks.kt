@@ -13,8 +13,8 @@ import com.example.atomic.view.MapView.Companion.widthOfFields
 
 class LogicClicks: InterfaceLogicClicks {
 
-    lateinit var activeAtom:ActiveAtom
-    lateinit var passiveAtom:PassiveAtom
+    var activeAtom:ActiveAtom
+    var passiveAtom:PassiveAtom
 
     constructor(v: InterfaceMapView) {
         this.activeAtom = ActiveAtom(v)
@@ -22,9 +22,9 @@ class LogicClicks: InterfaceLogicClicks {
     }
 
 
-    override fun onClick(xy:XY,view: MapView) {
+    override fun onClick(xy:XY) {
         l("onClick ${xy.x}")
-        val (map, width, height) = fromGlobal(view, xy)
+        val (map, width, height) = fromGlobal(xy)
         val listAtoms = map.listAtoms
         val listVectors = map.listVector
         listAtoms.map {
@@ -42,7 +42,6 @@ class LogicClicks: InterfaceLogicClicks {
     }
 
     private fun fromGlobal(
-        view: MapView,
         xy: XY
     ): Triple<CurrentMap, Int, Int> {
         val map = CurrentMap.getCurrentMap()
@@ -51,6 +50,4 @@ class LogicClicks: InterfaceLogicClicks {
         val height = xy.y / sAndW
         return Triple(map, width, height)
     }
-
-
 }

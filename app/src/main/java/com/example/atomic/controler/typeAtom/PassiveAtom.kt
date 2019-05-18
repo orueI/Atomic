@@ -17,27 +17,39 @@ class PassiveAtom {
     }
 
     fun clickOnAtom(atom: Atom) {
-        CurrentMap.getCurrentMap().listVector= ArrayListCustom(null)
-        val list = CurrentMap.getCurrentMap().getLayerPassability()
+        CurrentMap.getCurrentMap().listVector.clear()
+        val map = CurrentMap.getCurrentMap()
         l("clickOnAtom PassiveAtom")
 
-        val leftElement = list[atom.xy.y][atom.xy.x-1]
-        val rightElement = list[atom.xy.y][atom.xy.x+1]
-        val topElement = list[atom.xy.y+1][atom.xy.x]
-        val downElement = list[atom.xy.y-1][atom.xy.x]
+        val leftElement = XY(atom.xy.y,atom.xy.x-1)
+        val rightElement = XY(atom.xy.y,atom.xy.x+1)
+        val topElement = XY(atom.xy.y+1,atom.xy.x)
+        val downElement = XY(atom.xy.y-1,atom.xy.x)
 
-        if (leftElement?.passability == true)
-            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 2, 12, leftElement.xy))
+        if (map.isPassability(leftElement))
+            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 2, 12,
+                leftElement
+//            XY(1,5)
+            ))
 
-        if (rightElement?.passability == true)
-            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12, rightElement.xy))
+        if (map.isPassability(rightElement))
+            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12,
+                rightElement
+//            XY(3,5)
+            ))
 
-        if (topElement?.passability == true)
-            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12, topElement.xy))
-        if (downElement?.passability == true)
-            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12, downElement.xy))
+        if (map.isPassability(topElement))
+            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12,
+                topElement
+//            XY(2,4)
+            ))
+        if (map.isPassability(downElement))
+            CurrentMap.getCurrentMap().listVector.add(Vector(atom, 0, 12,
+                downElement
+//            XY(2,6)
+            ))
 
-//view.render()
+view.render()
     }
 
 }
