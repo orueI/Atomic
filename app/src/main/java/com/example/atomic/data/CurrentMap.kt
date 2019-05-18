@@ -58,8 +58,7 @@ class CurrentMap:CallBack {
     }
 
     fun isPassability(xy:XY):Boolean =
-        if (listMap[xy.y][xy.x].passability==false) false
-    else listAtoms.find { it.xy.equals(xy) } == null
+        !(!listMap[xy.y][xy.x].passability || listAtoms.find { it.xy.equals(xy) } != null)
 
 
     companion object {

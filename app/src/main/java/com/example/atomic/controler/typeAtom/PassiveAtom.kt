@@ -17,14 +17,14 @@ class PassiveAtom {
     }
 
     fun clickOnAtom(atom: Atom) {
-        CurrentMap.getCurrentMap().listVector.clear()
         val map = CurrentMap.getCurrentMap()
+        map.listVector.clear()
         l("clickOnAtom PassiveAtom")
 
-        val leftElement = XY(atom.xy.y,atom.xy.x-1)
-        val rightElement = XY(atom.xy.y,atom.xy.x+1)
-        val topElement = XY(atom.xy.y+1,atom.xy.x)
-        val downElement = XY(atom.xy.y-1,atom.xy.x)
+        val leftElement = XY(atom.xy.x-1,atom.xy.y)
+        val rightElement = XY(atom.xy.x+1,atom.xy.y)
+        val topElement = XY(atom.xy.x,atom.xy.y+1)
+        val downElement = XY(atom.xy.x,atom.xy.y-1)
 
         if (map.isPassability(leftElement))
             CurrentMap.getCurrentMap().listVector.add(Vector(atom, 2, 12,

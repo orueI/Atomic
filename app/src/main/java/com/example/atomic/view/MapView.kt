@@ -203,6 +203,14 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             }
             list.add(list1)
         }
+        for (i in 0..9)
+            list[0][i].passability=false
+        for (i in 0..9)
+            list[9][i].passability=false
+for (i in 0..9){
+    list[i][0].passability=false
+    list[i][9].passability=false
+}
         return list
     }        //It's litter
 
