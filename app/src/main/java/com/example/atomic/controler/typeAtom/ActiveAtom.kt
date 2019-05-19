@@ -1,9 +1,13 @@
 package com.example.atomic.controler.typeAtom
 
+import com.example.atomic.controler.Direction
 import com.example.atomic.controler.Vector
+import com.example.atomic.controler.Wall
 import com.example.atomic.controler.XY
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceMapView
+import com.example.atomic.utils.ArrayListCustom
+import com.example.atomic.utils.l
 
 class ActiveAtom {
     var view: InterfaceMapView
@@ -12,29 +16,23 @@ class ActiveAtom {
         this.view = view
     }
 
-    fun clickOnVector(vector: Vector):Boolean {
+    fun clickOnVector(vector: Vector) {
         val map = CurrentMap.getCurrentMap()
-//        val list = CurrentMap.getCurrentMap().getLayerPassability()
-        if (vector.vector % 2 == 0) {
-            val x = 1..map.wh.x
-            val k = if (vector.vector==0)1 else-1
-            for (i in x) {
-                if (!map.isPassability(XY(i*k,vector.xy.y))) {
-                    map.listAtoms.update(vector.atom)?.xy?.x = i - 1
-                    return true
-                }
+        when (vector.vector.name){
+            "right" -> {
+                map.listAtoms.update(vector.atom)?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy,1,0).x-1
             }
-        } else {
-            val y = 1..map.wh.y
-            val k = if (vector.vector==1)1 else-1
-            for (i in y) {
-                if (!map.isPassability(XY(vector.xy.x*k,i))){
-                    map.listAtoms.update(vector.atom)?.xy?.y = i-1
-                    return true
-                }
-
+            "left" -> {
+                map.listAtoms.update(vector.atom)?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy,-1,0).x+1
+            }
+            "top" -> {
+                map.listAtoms.update(vector.atom)?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy,0,1).y-1
+            }
+            "dawn" -> {
+                map.listAtoms.update(vector.atom)?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy,0,-1).y+1
             }
         }
-        return false
+        map.listVector = ArrayListCustom(map)
+        view.render()
     }
 }

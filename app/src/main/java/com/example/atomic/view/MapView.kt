@@ -5,7 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.graphics.Paint.ANTI_ALIAS_FLAG
-import android.graphics.Path.Direction;
+//import android.graphics.Path.Direction;
 import android.view.MotionEvent
 import com.example.atomic.controler.*
 import com.example.atomic.data.CurrentMap
@@ -16,6 +16,7 @@ import com.example.atomic.utils.ArrayListCustom
 import com.example.atomic.utils.l
 import com.example.atomic.utils.toGlobalCoordinate
 import com.example.atomic.utils.toGlobalCoordinateXY
+import com.example.atomic.controler.Direction.*
 import org.mockito.Mockito.mock
 
 
@@ -65,13 +66,12 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         l("onMeasure")
-        initCurrentMap(this)
+        initCurrentMap()
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         l("onTouch")
         logicClicks.onClick(XY(event!!.x.toInt(), event.y.toInt()))
-//        invalidate()
         return false
     }
 
@@ -115,10 +115,10 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             (vector.xy.x.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
             (vector.xy.y.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
             (sideOfSquare / 2.5).toFloat(),
-            Direction.CCW
+            Path.Direction.CCW
         )
         l("drawVector")
-        canvas?.drawPath(mPath, mPaint)
+        canvas.drawPath(mPath, mPaint)
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -130,7 +130,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         rect.right = getWidth()
         rect.top = 0
         rect.bottom = getHeight()
-        canvas?.drawRect(rect, mPaint)
+        canvas.drawRect(rect, mPaint)
     }
 
     private fun drawWallOrCell(canvas: Canvas, xy: XY, passability: Boolean) {
@@ -148,7 +148,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         rect.top = xy.y
         rect.right = xy.x + sideOfSquare
         rect.bottom = xy.y + sideOfSquare
-        canvas?.drawRect(rect, mPaint)
+        canvas.drawRect(rect, mPaint)
     }
 
     private fun drawAtom(canvas: Canvas, atom: Atom) {
@@ -163,9 +163,9 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             (x + sideOfSquare / 2).toFloat(),
             (y + sideOfSquare / 2).toFloat(),
             (sideOfSquare / 2.5).toFloat(),
-            Direction.CCW
+            Path.Direction.CCW
         )
-        canvas?.drawPath(mPath, mPaint)
+        canvas.drawPath(mPath, mPaint)
         val mPaintToText = Paint(ANTI_ALIAS_FLAG)
         mPaintToText.textSize = (sideOfSquare / 2).toFloat()
         mPaintToText.setStyle(Paint.Style.STROKE)
@@ -183,7 +183,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 //    }
 
 
-    fun initCurrentMap(mapView: MapView) {
+    fun initCurrentMap() {
         val map = CurrentMap.getCurrentMap()
 
         map.view = this
@@ -219,11 +219,11 @@ for (i in 0..9){
             override fun callBack() {
             }
         })
-        listAt.add(Atom("H", 1, 12, XY(1, 2)))
-        listAt.add(Atom("H", 1, 22, XY(2, 2)))
-        listAt.add(Atom("H", 1, 25, XY(2, 5)))
-        listAt.add(Atom("H", 1, 65, XY(6, 5)))
-        listAt.add(Atom("H", 1, 83, XY(8, 3)))
+        listAt.add(Atom("H", Direction.dawn, 12, XY(1, 2)))
+        listAt.add(Atom("H", Direction.left, 22, XY(2, 2)))
+        listAt.add(Atom("H", Direction.right, 25, XY(2, 5)))
+        listAt.add(Atom("H", Direction.top, 65, XY(6, 5)))
+        listAt.add(Atom("H", Direction.left, 83, XY(8, 3)))
         return listAt
     }                  //It's litter
 }
