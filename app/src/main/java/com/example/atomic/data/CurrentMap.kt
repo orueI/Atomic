@@ -34,9 +34,10 @@ class CurrentMap : CallBack {
             view?.render()
         }
 
-    var wh: XY = XY(10, 10)
+    var wh: XY = XY(15, 15)
     var view: InterfaceMapView? = null
 
+//    val resalt =
 
 //    fun getLayerPassability(): ArrayList<ArrayList<Wall>> {
 //        val list = ArrayList<ArrayList<Wall>>(listMap)

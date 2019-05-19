@@ -17,7 +17,10 @@ import com.example.atomic.utils.l
 import com.example.atomic.utils.toGlobalCoordinate
 import com.example.atomic.utils.toGlobalCoordinateXY
 import com.example.atomic.controler.Direction.*
+import com.example.atomic.controler.Vector
 import org.mockito.Mockito.mock
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MapView : View, View.OnTouchListener, InterfaceMapView {
@@ -80,7 +83,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val list = CurrentMap.getCurrentMap().listMap
         for (i in list) {
             for (cell in i) {
-                drawWallOrCell(canvas, cell.xy.toGlobalCoordinateXY(), cell.passability)
+                drawWallOrCell(canvas, cell.xy.toGlobalCoordinateXY(), cell.passability, cell)
             }
         }
     }
@@ -108,17 +111,55 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawVector(canvas: Canvas, vector: Vector) {
+        val x = vector.xy.x.toGlobalCoordinate()
+        val y = vector.xy.y.toGlobalCoordinate()
+        val sin = vector.vector.getSin()
+        val cos = vector.vector.getCos()
+
         val mPaint = Paint(ANTI_ALIAS_FLAG)
         val mPath = Path()
-        mPaint.color = Color.YELLOW
-        mPath.addCircle(
-            (vector.xy.x.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
-            (vector.xy.y.toGlobalCoordinate() + sideOfSquare / 2).toFloat(),
-            (sideOfSquare / 2.5).toFloat(),
-            Path.Direction.CCW
+        mPaint.color = Color.RED
+//        mPath.addCircle(
+//            (x + sideOfSquare / 2).toFloat(),
+//            (y + sideOfSquare / 2).toFloat(),
+//            (sideOfSquare / 2.5).toFloat(),
+//            Path.Direction.CCW
+//        )
+//        l("drawVector")
+//
+//        canvas.drawPath(mPath, mPaint)
+
+        mPath.reset()
+        mPath.moveTo(
+            (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin * -1).toFloat()
         )
-        l("drawVector")
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin * -1).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos).toFloat()
+        )
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.25 * sideOfSquare * sin * -1).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.25 * sideOfSquare * cos).toFloat()
+        )
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos * -1).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin ).toFloat()
+        )
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.25 * sideOfSquare * sin ).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.25 * sideOfSquare * cos * -1).toFloat()
+        )
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin ).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos * -1).toFloat()
+        )
+        mPath.lineTo(
+            (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin* -1).toFloat()
+        )
         canvas.drawPath(mPath, mPaint)
+
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -133,7 +174,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         canvas.drawRect(rect, mPaint)
     }
 
-    private fun drawWallOrCell(canvas: Canvas, xy: XY, passability: Boolean) {
+    private fun drawWallOrCell(canvas: Canvas, xy: XY, passability: Boolean, cell: Cell) {
         val mPaint = Paint(ANTI_ALIAS_FLAG)
         val rect = Rect()
         val mCornerPathEffect = CornerPathEffect(60.0f)
@@ -159,7 +200,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val y = atom.xy.y.toGlobalCoordinate()
         mPaint.color = Color.LTGRAY
         mPath.addCircle(
-//            TODO X IT'S Y
             (x + sideOfSquare / 2).toFloat(),
             (y + sideOfSquare / 2).toFloat(),
             (sideOfSquare / 2.5).toFloat(),
@@ -188,29 +228,34 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 
         map.view = this
         map.listMap = createListMapMock()
+
+        val array: Array<Array<Boolean>> = getArray()
+        setPossability(array)
+
         map.listAtoms = createListAtomMock()
     }                       //It's litter
 
     fun createListMapMock(): ArrayListCustom<ArrayList<Wall>> {
+        val map = CurrentMap.getCurrentMap()
         val list = ArrayListCustom<ArrayList<Wall>>(null)
-        for (i in 0..9) {
+        for (i in 0..14) {
             val list1 = ArrayList<Wall>()
-            for (i1 in 0..9) {
+            for (i1 in 0..14) {
 //                if (i1 == 0 || i1 == 9)
 //                    list1.add(Wall(false, i * 10 + i1, XY(i, i1)))
 //                else
-                list1.add(Wall(true, i * 10 + i1, XY(i, i1)))
+                list1.add(Wall(true, i * map.wh.x + i1, XY(i, i1)))
             }
             list.add(list1)
         }
-        for (i in 0..9)
-            list[0][i].passability=false
-        for (i in 0..9)
-            list[9][i].passability=false
-for (i in 0..9){
-    list[i][0].passability=false
-    list[i][9].passability=false
-}
+        for (i in 0..14)
+            list[0][i].passability = false
+        for (i in 0..14)
+            list[14][i].passability = false
+        for (i in 0..14) {
+            list[i][0].passability = false
+            list[i][14].passability = false
+        }
         return list
     }        //It's litter
 
@@ -219,11 +264,75 @@ for (i in 0..9){
             override fun callBack() {
             }
         })
-        listAt.add(Atom("H", Direction.dawn, 12, XY(1, 2)))
-        listAt.add(Atom("H", Direction.left, 22, XY(2, 2)))
-        listAt.add(Atom("H", Direction.right, 25, XY(2, 5)))
-        listAt.add(Atom("H", Direction.top, 65, XY(6, 5)))
-        listAt.add(Atom("H", Direction.left, 83, XY(8, 3)))
+        listAt.add(Atom("H", Direction.dawn, 53, XY(3, 5)))
+        listAt.add(Atom("C", Direction.left, 59, XY(9, 5)))
+        listAt.add(Atom("H", Direction.right, 73, XY(3, 7)))
+        listAt.add(Atom("H", Direction.top, 77, XY(7, 7)))
+        listAt.add(Atom("C", Direction.left, 83, XY(3, 8)))
+        listAt.add(Atom("H", Direction.left, 87, XY(7, 8)))
+        listAt.add(Atom("H", Direction.left, 115, XY(5, 11)))
         return listAt
     }                  //It's litter
+
+    fun setPossability(array: Array<Array<Boolean>>) {
+        val map = CurrentMap.getCurrentMap()
+        map.listMap.map {
+            it.map {
+                it.passability = array[it.xy.y][it.xy.x]
+            }
+        }
+    }
+
+    private fun getArray(): Array<Array<Boolean>> {
+        val array: Array<Array<Boolean>> = arrayOf(
+            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+            arrayOf(
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                true
+            ),
+            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+            arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
+            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+            arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
+            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+            arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
+            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+            arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
+            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+            arrayOf(
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                true
+            ),
+            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)
+        )
+        return array
+    }
 }
