@@ -6,6 +6,7 @@ import com.example.atomic.controler.Vector
 import com.example.atomic.interfaces.CallBack
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.ArrayListCustom
+import com.example.atomic.utils.getArray
 import com.example.atomic.utils.l
 import java.util.*
 import kotlin.collections.ArrayList
@@ -58,7 +59,7 @@ class CurrentMap : CallBack {
     }
 
     fun isPassability(xy: XY): Boolean =
-        !(!listMap[xy.y][xy.x].passability || listAtoms.find { it.xy.equals(xy) } != null)
+        !(!getArray()[xy.y][xy.x] || listAtoms.find { it.xy.equals(xy) } != null)
 
     fun getFirstNoNPassabilityCAll(xy: XY, x: Int = 0, y: Int = 0): XY {
 //        val x:Int = if(changingX)1 else 0

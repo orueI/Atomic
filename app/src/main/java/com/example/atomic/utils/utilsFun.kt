@@ -16,7 +16,58 @@ fun Int.toGlobalCoordinate(): Int =
 fun XY.toGlobalCoordinateXY(): XY =
     XY(x.toGlobalCoordinate(), y.toGlobalCoordinate())
 
-
+fun getArray(): Array<Array<Boolean>> {
+    val array: Array<Array<Boolean>> = arrayOf(
+        arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+        arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+        arrayOf(
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+        ),
+        arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+        arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
+        arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+        arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
+        arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+        arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
+        arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+        arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
+        arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
+        arrayOf(
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+        ),
+        arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
+        arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)
+    )
+    return array
+}
 //val fifteenFalse =
 //    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
 //val fifteenTrue =

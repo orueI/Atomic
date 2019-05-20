@@ -12,12 +12,9 @@ import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.CallBack
 import com.example.atomic.interfaces.InterfaceLogicClicks
 import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.utils.ArrayListCustom
-import com.example.atomic.utils.l
-import com.example.atomic.utils.toGlobalCoordinate
-import com.example.atomic.utils.toGlobalCoordinateXY
 import com.example.atomic.controler.Direction.*
 import com.example.atomic.controler.Vector
+import com.example.atomic.utils.*
 import org.mockito.Mockito.mock
 import java.util.*
 import kotlin.collections.ArrayList
@@ -283,56 +280,4 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         }
     }
 
-    private fun getArray(): Array<Array<Boolean>> {
-        val array: Array<Array<Boolean>> = arrayOf(
-            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-            arrayOf(
-                true,
-                true,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true,
-                true
-            ),
-            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-            arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
-            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-            arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
-            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-            arrayOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
-            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-            arrayOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
-            arrayOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-            arrayOf(
-                true,
-                true,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true,
-                true
-            ),
-            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-            arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)
-        )
-        return array
-    }
 }
