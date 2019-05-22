@@ -2,6 +2,7 @@ package com.example.atomic.utils
 
 import android.util.Log
 import com.example.atomic.controler.XY
+import com.example.atomic.data.CurrentMap
 import com.example.atomic.view.MapView
 import com.example.atomic.view.MapView.Companion.sideOfSquare
 import com.example.atomic.view.MapView.Companion.widthOfFields
@@ -15,6 +16,11 @@ fun Int.toGlobalCoordinate(): Int =
 
 fun XY.toGlobalCoordinateXY(): XY =
     XY(x.toGlobalCoordinate(), y.toGlobalCoordinate())
+
+fun anyXY():XY {
+//    val map = CurrentMap.getCurrentMap()
+    return XY(16,16)
+}
 
 fun getArray(): Array<Array<Boolean>> {
     val array: Array<Array<Boolean>> = arrayOf(

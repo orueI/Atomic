@@ -61,6 +61,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         drawMap(canvas)
         drawAtoms(canvas)
         drawVectors(canvas)
+//        drawExempleResult(canvas)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -87,8 +88,13 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 
     private fun drawAtoms(canvas: Canvas) {
         l("drawAtoms")
+        CurrentMap.getCurrentMap().setResult()
         val list = currentMap.listAtoms
+        val listResult = currentMap.listResultAtoms
         list.map {
+            drawAtom(canvas, it)
+        }
+        listResult.map {
             drawAtom(canvas, it)
         }
     }
@@ -100,6 +106,33 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             list.map {
                 drawVector(canvas, it)
             }
+    }
+
+    private fun drawExempleResult(canvas: Canvas){
+        CurrentMap.getCurrentMap().setResult()
+        val result = CurrentMap.getCurrentMap().listResult
+        var xy = XY(1,currentMap.wh.y+2)
+            result[0].object1.xy = xy
+        bypassAllAtomsOfResult(result[0].object1,canvas,ArrayList())
+
+    }
+
+    private fun bypassAllAtomsOfResult(a :Atom,canvas: Canvas,list:ArrayList<Atom>){
+        drawAtom(canvas,a)
+        list.add(a)
+        a.connections?.map {
+            val ob1 = it.object1
+            val ob2 = it.object2
+            if (ob1 != a && list.find { it.equals(ob1) }==null){
+                it.object1.xy.x += it.direction.getCos()*-1
+                it.object1.xy.y += it.direction.getSin()*-1
+                bypassAllAtomsOfResult(it.object1,canvas,list)
+            }else if(it.equals(ob2)){
+                it.object2.xy.x += it.direction.getCos()*-1
+                it.object2.xy.y += it.direction.getSin()*-1
+                bypassAllAtomsOfResult(it.object2,canvas,list)
+            }
+        }
     }
 
     override fun render() {
@@ -116,17 +149,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val mPaint = Paint(ANTI_ALIAS_FLAG)
         val mPath = Path()
         mPaint.color = Color.RED
-//        mPath.addCircle(
-//            (x + sideOfSquare / 2).toFloat(),
-//            (y + sideOfSquare / 2).toFloat(),
-//            (sideOfSquare / 2.5).toFloat(),
-//            Path.Direction.CCW
-//        )
-//        l("drawVector")
-//
-//        canvas.drawPath(mPath, mPaint)
 
-        mPath.reset()
         mPath.moveTo(
             (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos).toFloat(),
             (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin * -1).toFloat()
@@ -192,7 +215,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     private fun drawAtom(canvas: Canvas, atom: Atom) {
 
         val mPaint = Paint(ANTI_ALIAS_FLAG)
-        val mPath = Path()
+        var mPath = Path()
         val x = atom.xy.x.toGlobalCoordinate()
         val y = atom.xy.y.toGlobalCoordinate()
         mPaint.color = Color.LTGRAY
@@ -209,15 +232,44 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 
         canvas.drawText(
             atom.type,
-            (x).toFloat(),
-            (y + sideOfSquare).toFloat(),
+            (x + sideOfSquare * 0.3).toFloat(),
+            (y + sideOfSquare*0.7).toFloat(),
             mPaintToText
         )
-    }
 
-//    private fun Int.toGlobalCoordinate(): Int {
-//        return this * (widthOfFields + sideOfSquare) + widthOfFields
-//    }
+        mPaint.color = Color.GREEN
+        mPaint.strokeWidth = 5f
+        for (i in atom.vectorConnects) {
+            mPath = Path()
+//            mPath.moveTo((x +0.5* sideOfSquare+0.4 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.4 * sideOfSquare * i.getCos()).toFloat())
+//            mPath.lineTo((x +0.5* sideOfSquare+0.5 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.5 * sideOfSquare * i.getCos()).toFloat())
+//            mPath.lineTo((x +0.5* sideOfSquare+0.4 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.4 * sideOfSquare * i.getCos()).toFloat())
+//            mPaint.color = Color.RED
+            val sin = i.getSin()
+            val cos = i.getCos()
+
+//            mPath.moveTo(
+//                (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
+//                (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin * -1).toFloat()
+//            )
+//            mPath.lineTo(
+//                (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos ).toFloat(),
+//                (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin * -1).toFloat()
+//            )
+//            mPath.lineTo(
+//                (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
+//                (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin * -1).toFloat()
+//            )
+            canvas.drawLine(
+                (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
+            (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin ).toFloat(),
+                (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos ).toFloat(),
+                (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin ).toFloat(),
+                mPaint)
+//            canvas.drawPath(mPath, mPaint)
+        }
+        canvas.drawPath(mPath, mPaint)
+    }
 
 
     fun initCurrentMap() {
@@ -261,13 +313,13 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             override fun callBack() {
             }
         })
-        listAt.add(Atom("H", Direction.dawn, 53, XY(3, 5)))
-        listAt.add(Atom("C", Direction.left, 59, XY(9, 5)))
-        listAt.add(Atom("H", Direction.right, 73, XY(3, 7)))
-        listAt.add(Atom("H", Direction.top, 77, XY(7, 7)))
-        listAt.add(Atom("C", Direction.left, 83, XY(3, 8)))
-        listAt.add(Atom("H", Direction.left, 87, XY(7, 8)))
-        listAt.add(Atom("H", Direction.left, 115, XY(5, 11)))
+        listAt.add(Atom("H", arrayOf(Direction.right), 53, XY(3, 5)))
+        listAt.add(Atom("H", arrayOf(Direction.top),  59, XY(9, 5)))
+        listAt.add(Atom("H", arrayOf(Direction.dawn), 73, XY(3, 7)))
+        listAt.add(Atom("H", arrayOf(Direction.dawn),77, XY(7, 7)))
+        listAt.add(Atom("O", arrayOf(Direction.left), 83, XY(3, 8)))
+        listAt.add(Atom("C", arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn),  87, XY(7, 8)))
+        listAt.add(Atom("C", arrayOf(Direction.left, Direction.top, Direction.right),  115, XY(5, 11)))
         return listAt
     }                  //It's litter
 

@@ -11,7 +11,7 @@ open class Cell(
 
 class Wall(var passability: Boolean, id: Int, xy: XY) : Cell(id, xy)// passability = true пусто
 
-class Atom(val type: String, val vectorConnect: Direction, id: Int, xy: XY,connection: Connection? = null) : Cell(id, xy)
+class Atom(val type: String, val vectorConnects: Array<Direction>, id: Int, xy: XY,var connections: Array<Connection>? = null) : Cell(id, xy)
 
 class Vector(val atom: Atom, val vector: Direction, id: Int, xy: XY) : Cell(id, xy)
 
@@ -40,4 +40,4 @@ enum class Direction {
 //   \/ sin
 }
 
-data class Connection(val direction: Direction,val parent:Atom,val son: Atom)
+data class Connection(val object1:Atom,val object2: Atom,val direction: Direction)

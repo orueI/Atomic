@@ -12,28 +12,28 @@ class ArrayListCustom<E> : ArrayList<E> {
 
     override fun add(element: E): Boolean {
         val b = super.add(element)
-        callBack?.callBack()
+//        callBack?.callBack()
         l("ArrayLisk add")
         return b
     }
 
     override fun add(index: Int, element: E) {
         super.add(index, element)
-        callBack?.callBack()
+//        callBack?.callBack()
         l("ArrayLisk add")
     }
 
     override fun remove(element: E): Boolean {
         val b = super.remove(element)
-        callBack?.callBack()
+//        callBack?.callBack()
         l("ArrayLisk remove")
         return b
     }
 
     fun update(element: E): E? {
         val resalt = this.find { it!!.equals(element) }
-        if (resalt != null)
-            callBack?.callBack()
+//        if (resalt != null)
+//            callBack?.callBack()
         return resalt
 
 
