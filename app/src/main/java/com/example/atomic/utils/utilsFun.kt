@@ -17,11 +17,6 @@ fun Int.toGlobalCoordinate(): Int =
 fun XY.toGlobalCoordinateXY(): XY =
     XY(x.toGlobalCoordinate(), y.toGlobalCoordinate())
 
-fun anyXY():XY {
-//    val map = CurrentMap.getCurrentMap()
-    return XY(16,16)
-}
-
 fun getArray(): Array<Array<Boolean>> {
     val array: Array<Array<Boolean>> = arrayOf(
         arrayOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),

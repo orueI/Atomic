@@ -1,4 +1,4 @@
-package com.example.atomic.activity
+package com.example.atomic.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

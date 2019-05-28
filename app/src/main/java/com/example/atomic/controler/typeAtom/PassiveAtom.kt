@@ -16,7 +16,6 @@ class PassiveAtom {
     fun clickOnAtom(atom: Atom) {
         val map = CurrentMap.getCurrentMap()
         map.listVector.clear()
-        l("clickOnAtom PassiveAtom")
 
         val leftElement = XY(atom.xy.x-1,atom.xy.y)
         val rightElement = XY(atom.xy.x+1,atom.xy.y)

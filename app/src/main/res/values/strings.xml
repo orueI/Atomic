@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Atomic</string>
+    <string name="map_selection">Map selection</string>
 </resources>

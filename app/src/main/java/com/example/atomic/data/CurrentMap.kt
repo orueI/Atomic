@@ -5,7 +5,6 @@ import com.example.atomic.controler.Vector
 import com.example.atomic.interfaces.CallBack
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.ArrayListCustom
-import com.example.atomic.utils.anyXY
 import com.example.atomic.utils.getArray
 import com.example.atomic.utils.l
 import kotlin.collections.ArrayList
@@ -45,8 +44,6 @@ class CurrentMap : CallBack {
         !(!getArray()[xy.y][xy.x] || listAtoms.find { it.xy.equals(xy) } != null)
 
     fun getFirstNoNPassabilityCAll(xy: XY, x: Int = 0, y: Int = 0): XY {
-//        val x:Int = if(changingX)1 else 0
-//        val y:Int = if(changingY)1 else 0
         for (i in 1..wh.x) {
             val iXY = XY(xy.x + i * x, xy.y + i * y)
             if (!isPassability(iXY))
@@ -70,13 +67,13 @@ class CurrentMap : CallBack {
     }
 
     fun setResult(){
-        val atomHR              =              Atom("H", arrayOf(Direction.right), 0, XY(1,17))
-        val atomHT              =              Atom("H", arrayOf(Direction.top), 0, XY(2,18))
-        val atomHD              =              Atom("H", arrayOf(Direction.dawn), 0, XY(2,16))
-        val atomHD2             =             Atom("H", arrayOf(Direction.dawn), 0, XY(3,16))
-        val atomOL              =              Atom("O", arrayOf(Direction.left), 0, XY(4,17))
-        val atomCAll            =            Atom("C", arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn), 0, XY(2,17))
-        val atomCWithautDawn    =    Atom("C", arrayOf(Direction.left, Direction.top, Direction.right), 0, XY(3,17))
+        val atomHR              =              Atom(TypeAtom.H, arrayOf(Direction.right), 0, XY(1,17))
+        val atomHT              =              Atom(TypeAtom.H, arrayOf(Direction.top), 0, XY(2,18))
+        val atomHD              =              Atom(TypeAtom.H, arrayOf(Direction.dawn), 0, XY(2,16))
+        val atomHD2             =             Atom(TypeAtom.H, arrayOf(Direction.dawn), 0, XY(3,16))
+        val atomOL              =              Atom(TypeAtom.O, arrayOf(Direction.left), 0, XY(4,17))
+        val atomCAll            =            Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn), 0, XY(2,17))
+        val atomCWithautDawn    =               Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right), 0, XY(3,17))
 
         lateinit var connectHRandCAll: Connection
         lateinit var connectHTandCAll: Connection

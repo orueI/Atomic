@@ -30,8 +30,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         var widthOfFields: Int = 0
     }
 
-//    private lateinit var canvas: Canvas
-
     constructor(context: Context?) : super(context) {
         init()
 
@@ -66,18 +64,15 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        l("onMeasure")
         initCurrentMap()
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        l("onTouch")
         logicClicks.onClick(XY(event!!.x.toInt(), event.y.toInt()))
         return false
     }
 
     private fun drawMap(canvas: Canvas) {
-        l("drawMap")
         val list = CurrentMap.getCurrentMap().listMap
         for (i in list) {
             for (cell in i) {
@@ -87,7 +82,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawAtoms(canvas: Canvas) {
-        l("drawAtoms")
         CurrentMap.getCurrentMap().setResult()
         val list = currentMap.listAtoms
         val listResult = currentMap.listResultAtoms
@@ -100,7 +94,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawVectors(canvas: Canvas) {
-        l("drawVectors")
         val list = currentMap.listVector
         if (list.size > 0)
             list.map {
@@ -136,7 +129,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }
 
     override fun render() {
-        l("render")
         invalidate()
     }
 
@@ -231,42 +223,25 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         mPaintToText.setStyle(Paint.Style.STROKE)
 
         canvas.drawText(
-            atom.type,
+            atom.type.toString(),
             (x + sideOfSquare * 0.3).toFloat(),
             (y + sideOfSquare*0.7).toFloat(),
             mPaintToText
         )
 
         mPaint.color = Color.GREEN
-        mPaint.strokeWidth = 5f
+        mPaint.strokeWidth = 8f
         for (i in atom.vectorConnects) {
             mPath = Path()
-//            mPath.moveTo((x +0.5* sideOfSquare+0.4 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.4 * sideOfSquare * i.getCos()).toFloat())
-//            mPath.lineTo((x +0.5* sideOfSquare+0.5 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.5 * sideOfSquare * i.getCos()).toFloat())
-//            mPath.lineTo((x +0.5* sideOfSquare+0.4 * sideOfSquare * i.getSin()).toFloat(), (y +0.5* sideOfSquare+0.4 * sideOfSquare * i.getCos()).toFloat())
-//            mPaint.color = Color.RED
             val sin = i.getSin()
             val cos = i.getCos()
 
-//            mPath.moveTo(
-//                (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
-//                (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin * -1).toFloat()
-//            )
-//            mPath.lineTo(
-//                (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos ).toFloat(),
-//                (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin * -1).toFloat()
-//            )
-//            mPath.lineTo(
-//                (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
-//                (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin * -1).toFloat()
-//            )
             canvas.drawLine(
                 (x + 0.5 * sideOfSquare + 0.4 * sideOfSquare * cos).toFloat(),
             (y + 0.5 * sideOfSquare + 0.4 * sideOfSquare * sin ).toFloat(),
                 (x + 0.5 * sideOfSquare + 0.5 * sideOfSquare * cos ).toFloat(),
                 (y + 0.5 * sideOfSquare + 0.5 * sideOfSquare * sin ).toFloat(),
                 mPaint)
-//            canvas.drawPath(mPath, mPaint)
         }
         canvas.drawPath(mPath, mPaint)
     }
@@ -290,9 +265,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         for (i in 0..14) {
             val list1 = ArrayList<Wall>()
             for (i1 in 0..14) {
-//                if (i1 == 0 || i1 == 9)
-//                    list1.add(Wall(false, i * 10 + i1, XY(i, i1)))
-//                else
                 list1.add(Wall(true, i * map.wh.x + i1, XY(i, i1)))
             }
             list.add(list1)
@@ -313,13 +285,13 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             override fun callBack() {
             }
         })
-        listAt.add(Atom("H", arrayOf(Direction.right), 53, XY(3, 5)))
-        listAt.add(Atom("H", arrayOf(Direction.top),  59, XY(9, 5)))
-        listAt.add(Atom("H", arrayOf(Direction.dawn), 73, XY(3, 7)))
-        listAt.add(Atom("H", arrayOf(Direction.dawn),77, XY(7, 7)))
-        listAt.add(Atom("O", arrayOf(Direction.left), 83, XY(3, 8)))
-        listAt.add(Atom("C", arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn),  87, XY(7, 8)))
-        listAt.add(Atom("C", arrayOf(Direction.left, Direction.top, Direction.right),  115, XY(5, 11)))
+        listAt.add(Atom(TypeAtom.H, arrayOf(Direction.right), 53, XY(6, 5)))
+        listAt.add(Atom(TypeAtom.H, arrayOf(Direction.top),  59, XY(7, 6)))
+        listAt.add(Atom(TypeAtom.H, arrayOf(dawn), 73, XY(8, 4)))
+        listAt.add(Atom(TypeAtom.H, arrayOf(dawn),77, XY(7, 4)))
+        listAt.add(Atom(TypeAtom.O, arrayOf(Direction.left), 83, XY(10, 5)))
+        listAt.add(Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn),  87, XY(7, 5)))
+        listAt.add(Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right),  115, XY(8, 5)))
         return listAt
     }                  //It's litter
 

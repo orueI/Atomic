@@ -23,7 +23,6 @@ class LogicClicks: InterfaceLogicClicks {
 
 
     override fun onClick(xy:XY) {
-        l("onClick ${xy.x}")
         val (map, width, height) = fromGlobal(xy)
         val listAtoms = map.listAtoms
         val listVectors = map.listVector
