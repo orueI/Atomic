@@ -1,7 +1,6 @@
 package com.example.atomic.data
 
-import com.example.atomic.controler.*
-import com.example.atomic.controler.Vector
+import com.example.atomic.*
 import com.example.atomic.interfaces.CallBack
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.ArrayListCustom
@@ -19,22 +18,9 @@ class CurrentMap : CallBack {
         view?.render()
     }
 
-    var listMap: ArrayListCustom<ArrayList<Wall>> = ArrayListCustom(this)
-        set(value) {
-            field = value
-            view?.render()
-        }
+    var listMapPassibility :ArrayList<ArrayList<Boolean>> = getArray()
     var listAtoms: ArrayListCustom<Atom> = ArrayListCustom(this)
-        set(value) {
-            field = value
-            view?.render()
-        }
     var listVector: ArrayListCustom<Vector> = ArrayListCustom(this)
-        set(value) {
-            field = value
-            view?.render()
-        }
-    val listResult: ArrayListCustom<Connection> = ArrayListCustom(this)
     val listResultAtoms: ArrayListCustom<Atom> = ArrayListCustom(this)
     var wh: XY = XY(15, 15)
     var view: InterfaceMapView? = null
@@ -67,13 +53,57 @@ class CurrentMap : CallBack {
     }
 
     fun setResult(){
-        val atomHR              =              Atom(TypeAtom.H, arrayOf(Direction.right), 0, XY(1,17))
-        val atomHT              =              Atom(TypeAtom.H, arrayOf(Direction.top), 0, XY(2,18))
-        val atomHD              =              Atom(TypeAtom.H, arrayOf(Direction.dawn), 0, XY(2,16))
-        val atomHD2             =             Atom(TypeAtom.H, arrayOf(Direction.dawn), 0, XY(3,16))
-        val atomOL              =              Atom(TypeAtom.O, arrayOf(Direction.left), 0, XY(4,17))
-        val atomCAll            =            Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn), 0, XY(2,17))
-        val atomCWithautDawn    =               Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right), 0, XY(3,17))
+        val atomHR              = Atom(
+            TypeAtom.H,
+            arrayOf(Direction.right),
+            0,
+            XY(1, 17)
+        )
+        val atomHT              = Atom(
+            TypeAtom.H,
+            arrayOf(Direction.top),
+            0,
+            XY(2, 18)
+        )
+        val atomHD              = Atom(
+            TypeAtom.H,
+            arrayOf(Direction.dawn),
+            0,
+            XY(2, 16)
+        )
+        val atomHD2             = Atom(
+            TypeAtom.H,
+            arrayOf(Direction.dawn),
+            0,
+            XY(3, 16)
+        )
+        val atomOL              = Atom(
+            TypeAtom.O,
+            arrayOf(Direction.left),
+            0,
+            XY(4, 17)
+        )
+        val atomCAll            = Atom(
+            TypeAtom.C,
+            arrayOf(
+                Direction.left,
+                Direction.top,
+                Direction.right,
+                Direction.dawn
+            ),
+            0,
+            XY(2, 17)
+        )
+        val atomCWithautDawn    = Atom(
+            TypeAtom.C,
+            arrayOf(
+                Direction.left,
+                Direction.top,
+                Direction.right
+            ),
+            0,
+            XY(3, 17)
+        )
 
         lateinit var connectHRandCAll: Connection
         lateinit var connectHTandCAll: Connection
@@ -83,12 +113,15 @@ class CurrentMap : CallBack {
         lateinit var connectCWithautDandOL: Connection
 
 
-        connectHRandCAll = Connection(atomHR, atomCAll,Direction.right)
-        connectHTandCAll = Connection(atomHT, atomCAll,Direction.top)
+        connectHRandCAll = Connection(atomHR, atomCAll, Direction.right)
+        connectHTandCAll = Connection(atomHT, atomCAll, Direction.top)
         connectHDandCAll = Connection(atomHD, atomCAll, Direction.dawn)
-        connectCWithautDandCAll = Connection(atomCWithautDawn, atomCAll,Direction.left)
-        connectCWithautDandHD2 = Connection(atomCWithautDawn, atomHD2,Direction.top)
-        connectCWithautDandOL = Connection(atomCWithautDawn, atomOL,Direction.right)
+        connectCWithautDandCAll =
+            Connection(atomCWithautDawn, atomCAll, Direction.left)
+        connectCWithautDandHD2 =
+            Connection(atomCWithautDawn, atomHD2, Direction.top)
+        connectCWithautDandOL =
+            Connection(atomCWithautDawn, atomOL, Direction.right)
 
         atomHR.connections = arrayOf(connectHRandCAll)
         atomHT.connections = arrayOf(connectHTandCAll)
@@ -99,12 +132,12 @@ class CurrentMap : CallBack {
         atomCWithautDawn.connections = arrayOf(connectCWithautDandCAll, connectCWithautDandHD2, connectCWithautDandOL)
 
 //        listResult.clear()
-        listResult.add(connectHRandCAll)
-        listResult.add(connectHTandCAll)
-        listResult.add(connectHDandCAll)
-        listResult.add(connectCWithautDandCAll)
-        listResult.add(connectCWithautDandHD2)
-        listResult.add(connectCWithautDandOL)
+//        listResult.add(connectHRandCAll)
+//        listResult.add(connectHTandCAll)
+//        listResult.add(connectHDandCAll)
+//        listResult.add(connectCWithautDandCAll)
+//        listResult.add(connectCWithautDandHD2)
+//        listResult.add(connectCWithautDandOL)
 
         listResultAtoms.add(atomHR          )
         listResultAtoms.add(atomHT          )

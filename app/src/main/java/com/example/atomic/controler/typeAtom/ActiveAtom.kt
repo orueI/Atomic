@@ -1,6 +1,9 @@
 package com.example.atomic.controler.typeAtom
 
-import com.example.atomic.controler.*
+import com.example.atomic.Atom
+import com.example.atomic.Direction
+import com.example.atomic.Vector
+import com.example.atomic.XY
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.ArrayListCustom

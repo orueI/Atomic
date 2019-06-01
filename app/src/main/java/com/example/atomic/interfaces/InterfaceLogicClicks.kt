@@ -1,9 +1,7 @@
 package com.example.atomic.interfaces
 
-import android.view.View
-import com.example.atomic.controler.XY
-import com.example.atomic.view.MapView
+import com.example.atomic.XY
 
 interface InterfaceLogicClicks {
-    fun onClick(xy:XY)
+    fun onClick(xy: XY)
 }

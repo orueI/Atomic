@@ -1,13 +1,11 @@
 package com.example.atomic.controler
 
-import android.view.View
+import com.example.atomic.XY
 import com.example.atomic.controler.typeAtom.ActiveAtom
 import com.example.atomic.controler.typeAtom.PassiveAtom
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceLogicClicks
 import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.utils.l
-import com.example.atomic.view.MapView
 import com.example.atomic.view.MapView.Companion.sideOfSquare
 import com.example.atomic.view.MapView.Companion.widthOfFields
 
@@ -22,16 +20,16 @@ class LogicClicks: InterfaceLogicClicks {
     }
 
 
-    override fun onClick(xy:XY) {
+    override fun onClick(xy: XY) {
         val (map, width, height) = fromGlobal(xy)
         val listAtoms = map.listAtoms
         val listVectors = map.listVector
         listAtoms.map {
-            if (it.xy.equals(XY(width,height)))
+            if (it.xy.equals(XY(width, height)))
                 passiveAtom.clickOnAtom(it)
         }
         listVectors.map {
-            if (it.xy.equals(XY(width,height)))
+            if (it.xy.equals(XY(width, height)))
                 activeAtom.clickOnVector(it)
         }
 

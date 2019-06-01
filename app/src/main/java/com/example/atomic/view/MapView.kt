@@ -7,16 +7,15 @@ import android.view.View
 import android.graphics.Paint.ANTI_ALIAS_FLAG
 //import android.graphics.Path.Direction;
 import android.view.MotionEvent
+import com.example.atomic.*
 import com.example.atomic.controler.*
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.CallBack
 import com.example.atomic.interfaces.InterfaceLogicClicks
 import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.controler.Direction.*
-import com.example.atomic.controler.Vector
+import com.example.atomic.Direction.*
+import com.example.atomic.Vector
 import com.example.atomic.utils.*
-import org.mockito.Mockito.mock
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -59,7 +58,6 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         drawMap(canvas)
         drawAtoms(canvas)
         drawVectors(canvas)
-//        drawExempleResult(canvas)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -73,10 +71,10 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawMap(canvas: Canvas) {
-        val list = CurrentMap.getCurrentMap().listMap
-        for (i in list) {
-            for (cell in i) {
-                drawWallOrCell(canvas, cell.xy.toGlobalCoordinateXY(), cell.passability, cell)
+        val list = CurrentMap.getCurrentMap().listMapPassibility
+        for (i in list.indices) {
+            for (cell in list[i].indices) {
+                drawWallOrCell(canvas, XY(cell,i).toGlobalCoordinateXY(), list[i][cell])
             }
         }
     }
@@ -101,16 +99,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             }
     }
 
-    private fun drawExempleResult(canvas: Canvas){
-        CurrentMap.getCurrentMap().setResult()
-        val result = CurrentMap.getCurrentMap().listResult
-        var xy = XY(1,currentMap.wh.y+2)
-            result[0].object1.xy = xy
-        bypassAllAtomsOfResult(result[0].object1,canvas,ArrayList())
-
-    }
-
-    private fun bypassAllAtomsOfResult(a :Atom,canvas: Canvas,list:ArrayList<Atom>){
+    private fun bypassAllAtomsOfResult(a : Atom, canvas: Canvas, list:ArrayList<Atom>){
         drawAtom(canvas,a)
         list.add(a)
         a.connections?.map {
@@ -186,7 +175,7 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         canvas.drawRect(rect, mPaint)
     }
 
-    private fun drawWallOrCell(canvas: Canvas, xy: XY, passability: Boolean, cell: Cell) {
+    private fun drawWallOrCell(canvas: Canvas, xy: XY, passability: Boolean) {
         val mPaint = Paint(ANTI_ALIAS_FLAG)
         val rect = Rect()
         val mCornerPathEffect = CornerPathEffect(60.0f)
@@ -251,10 +240,8 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
         val map = CurrentMap.getCurrentMap()
 
         map.view = this
-        map.listMap = createListMapMock()
 
-        val array: Array<Array<Boolean>> = getArray()
-        setPossability(array)
+        val array: ArrayList<ArrayList<Boolean>> = getArray()
 
         map.listAtoms = createListAtomMock()
     }                       //It's litter
@@ -285,23 +272,82 @@ class MapView : View, View.OnTouchListener, InterfaceMapView {
             override fun callBack() {
             }
         })
-        listAt.add(Atom(TypeAtom.H, arrayOf(Direction.right), 53, XY(6, 5)))
-        listAt.add(Atom(TypeAtom.H, arrayOf(Direction.top),  59, XY(7, 6)))
-        listAt.add(Atom(TypeAtom.H, arrayOf(dawn), 73, XY(8, 4)))
-        listAt.add(Atom(TypeAtom.H, arrayOf(dawn),77, XY(7, 4)))
-        listAt.add(Atom(TypeAtom.O, arrayOf(Direction.left), 83, XY(10, 5)))
-        listAt.add(Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right, Direction.dawn),  87, XY(7, 5)))
-        listAt.add(Atom(TypeAtom.C, arrayOf(Direction.left, Direction.top, Direction.right),  115, XY(8, 5)))
+        listAt.add(
+            Atom(
+                TypeAtom.H,
+                arrayOf(Direction.right),
+                53,
+                XY(6, 5)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.H,
+                arrayOf(Direction.top),
+                59,
+                XY(7, 6)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.H,
+                arrayOf(dawn),
+                73,
+                XY(8, 4)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.H,
+                arrayOf(dawn),
+                77,
+                XY(7, 4)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.O,
+                arrayOf(Direction.left),
+                83,
+                XY(10, 5)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.C,
+                arrayOf(
+                    Direction.left,
+                    Direction.top,
+                    Direction.right,
+                    dawn
+                ),
+                87,
+                XY(7, 5)
+            )
+        )
+        listAt.add(
+            Atom(
+                TypeAtom.C,
+                arrayOf(
+                    Direction.left,
+                    Direction.top,
+                    Direction.right
+                ),
+                115,
+                XY(8, 5)
+            )
+        )
+
         return listAt
     }                  //It's litter
 
-    fun setPossability(array: Array<Array<Boolean>>) {
-        val map = CurrentMap.getCurrentMap()
-        map.listMap.map {
-            it.map {
-                it.passability = array[it.xy.y][it.xy.x]
-            }
-        }
-    }
+//    fun setPossability(array: Array<Array<Boolean>>) {
+//        val map = CurrentMap.getCurrentMap()
+//        map.listMap.map {
+//            it.map {
+//                it.passability = array[it.xy.y][it.xy.x]
+//            }
+//        }
+//    }
 
 }
