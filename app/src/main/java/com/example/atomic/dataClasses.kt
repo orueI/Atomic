@@ -7,13 +7,27 @@ open class Cell(
     var xy: XY
 )
 
-class Wall(var passability: Boolean, id: Int, xy: XY) : Cell(id, xy)// passability = true пусто
+class Wall(var passability: Boolean, id: Int, xy: XY) : Cell(id, xy)// passability = true - пусто
 
-class Atom(val type: TypeAtom, val vectorConnects: Array<Direction>, id: Int, xy: XY, var connections: Array<Connection>? = null) : Cell(id, xy)
+class Atom(
+    val type: TypeAtom,
+    val vectorConnects: Array<Direction>,
+    id: Int,
+    xy: XY,
+    var connections: ArrayList<Connection>? = null
+) : Cell(id, xy)
 
 class Vector(val atom: Atom, val vector: Direction, id: Int, xy: XY) : Cell(id, xy)
 
 data class Connection(val object1: Atom, val object2: Atom, val direction: Direction)
+
+open class Map(
+    var listPassibility: ArrayList<ArrayList<Boolean>>,
+    var listAtoms: ArrayList<Atom>,
+    var listResultAtoms: ArrayList<Atom>,
+    var wh: XY,
+    var listConnection: ArrayList<Connection>? = null
+)
 
 enum class Direction {
     right {
@@ -33,11 +47,92 @@ enum class Direction {
         override fun getCos() = 0
     };
 
-    abstract fun getSin():Int
-    abstract fun getCos():Int
+    abstract fun getSin(): Int
+    abstract fun getCos(): Int
 //    |----> cos
 //    |
 //   \/ sin
 }
 
-enum class TypeAtom{H,C,O}
+enum class TypeAtom { H, C, O }
+
+enum class Levels(val numForLevel:Int) {
+    level_1(1) {
+        override fun getNameOfLevel(): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getImage(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getInt(): Int =
+            R.string.level_1
+
+    },
+    level_2(2) {
+        override fun getNameOfLevel(): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getImage(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getInt(): Int =
+            R.string.level_2
+    },
+    level_3(3) {
+        override fun getNameOfLevel(): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getImage(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getInt(): Int =
+            R.string.level_3
+
+    },
+    level_4(4) {
+        override fun getNameOfLevel(): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getImage(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getInt(): Int =
+            R.string.level_4
+
+    },
+    level_5(5) {
+        override fun getNameOfLevel(): String {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getImage(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getInt(): Int =
+            R.string.level_5
+
+    },
+    level_6(6) {
+        override fun getNameOfLevel(): String = "acetaldehyde"
+
+        override fun getImage(): Int = R.drawable.image_of_level_6
+
+        override fun getInt(): Int =
+            R.string.level_6
+
+    };
+
+    abstract fun getInt(): Int
+    abstract fun getImage(): Int
+    abstract fun getNameOfLevel(): String
+    fun getNumberOfLevels():Int = 6
+}

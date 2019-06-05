@@ -6,7 +6,6 @@ import com.example.atomic.Vector
 import com.example.atomic.XY
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.utils.ArrayListCustom
 import com.example.atomic.utils.l
 
 class ActiveAtom {
@@ -21,19 +20,19 @@ class ActiveAtom {
         val map = CurrentMap.getCurrentMap()
         when (vector.vector.name) {
             "right" -> {
-                map.listAtoms.update(vector.atom)?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy, 1, 0).x - 1
+                map.listAtoms.find { it!!.equals(vector.atom)}?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy, 1, 0).x - 1
             }
             "left" -> {
-                map.listAtoms.update(vector.atom)?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy, -1, 0).x + 1
+                map.listAtoms.find { it!!.equals(vector.atom)}?.xy?.x = map.getFirstNoNPassabilityCAll(vector.atom.xy, -1, 0).x + 1
             }
             "top" -> {
-                map.listAtoms.update(vector.atom)?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy, 0, 1).y - 1
+                map.listAtoms.find { it!!.equals(vector.atom)}?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy, 0, 1).y - 1
             }
             "dawn" -> {
-                map.listAtoms.update(vector.atom)?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy, 0, -1).y + 1
+                map.listAtoms.find { it!!.equals(vector.atom)}?.xy?.y = map.getFirstNoNPassabilityCAll(vector.atom.xy, 0, -1).y + 1
             }
         }
-        map.listVector = ArrayListCustom(map)
+        map.listVector = ArrayList()
         if (chackResalt(vector.atom))
             l("You are right!")
 //        todo need create skip this level

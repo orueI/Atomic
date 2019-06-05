@@ -9,14 +9,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.atomic.view.activity.MainActivity">
+        <activity android:name="com.example.atomic.view.activity.CentralAtcivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.atomic.view.activity.CentralAtcivity"/>
+        <activity android:name="com.example.atomic.view.activity.MainActivity"/>
 
     </application>
 

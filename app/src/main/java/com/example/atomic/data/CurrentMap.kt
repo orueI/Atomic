@@ -1,29 +1,20 @@
 package com.example.atomic.data
 
 import com.example.atomic.*
-import com.example.atomic.interfaces.CallBack
-import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.utils.ArrayListCustom
+import com.example.atomic.Map
 import com.example.atomic.utils.getArray
-import com.example.atomic.utils.l
 import kotlin.collections.ArrayList
 
-class CurrentMap : CallBack {
-    private constructor() {
-//        setResult()
-    }
+class CurrentMap : Map {
+    private constructor(
+        listPassibility: ArrayList<ArrayList<Boolean>> = ArrayList(),
+        listAtoms: ArrayList<Atom> = ArrayList(),
+        listResultAtoms: ArrayList<Atom> = ArrayList(),
+        wh: XY = XY(0,0)
+    ) : super(listPassibility, listAtoms, listResultAtoms,wh)
 
-    override fun callBack() {
-        l("CallBack")
-        view?.render()
-    }
 
-    var listMapPassibility :ArrayList<ArrayList<Boolean>> = getArray()
-    var listAtoms: ArrayListCustom<Atom> = ArrayListCustom(this)
-    var listVector: ArrayListCustom<Vector> = ArrayListCustom(this)
-    val listResultAtoms: ArrayListCustom<Atom> = ArrayListCustom(this)
-    var wh: XY = XY(15, 15)
-    var view: InterfaceMapView? = null
+    var listVector: ArrayList<Vector> = ArrayList()
 
 
     fun isPassability(xy: XY): Boolean =
@@ -46,106 +37,32 @@ class CurrentMap : CallBack {
             if (currentMap != null)
                 return currentMap!!
             currentMap = CurrentMap()
+            ChangeMap.changeLevel(Levels.level_6)
+            return currentMap!!
+
+        }
+        fun getCurrentMap(numLevel:Int): CurrentMap {
+//            if (currentMap != null)
+//                return currentMap!!
+            val level = Levels.valueOf("level_$numLevel")
+            currentMap = CurrentMap()
+            ChangeMap.changeLevel(level)
             return currentMap!!
 
         }
 
     }
 
-    fun setResult(){
-        val atomHR              = Atom(
-            TypeAtom.H,
-            arrayOf(Direction.right),
-            0,
-            XY(1, 17)
-        )
-        val atomHT              = Atom(
-            TypeAtom.H,
-            arrayOf(Direction.top),
-            0,
-            XY(2, 18)
-        )
-        val atomHD              = Atom(
-            TypeAtom.H,
-            arrayOf(Direction.dawn),
-            0,
-            XY(2, 16)
-        )
-        val atomHD2             = Atom(
-            TypeAtom.H,
-            arrayOf(Direction.dawn),
-            0,
-            XY(3, 16)
-        )
-        val atomOL              = Atom(
-            TypeAtom.O,
-            arrayOf(Direction.left),
-            0,
-            XY(4, 17)
-        )
-        val atomCAll            = Atom(
-            TypeAtom.C,
-            arrayOf(
-                Direction.left,
-                Direction.top,
-                Direction.right,
-                Direction.dawn
-            ),
-            0,
-            XY(2, 17)
-        )
-        val atomCWithautDawn    = Atom(
-            TypeAtom.C,
-            arrayOf(
-                Direction.left,
-                Direction.top,
-                Direction.right
-            ),
-            0,
-            XY(3, 17)
-        )
+    fun changeMap(map: Map){
+        this.listPassibility = map.listPassibility
+        this.listAtoms = map.listAtoms
+        this.wh = map.wh
 
-        lateinit var connectHRandCAll: Connection
-        lateinit var connectHTandCAll: Connection
-        lateinit var connectHDandCAll: Connection
-        lateinit var connectCWithautDandCAll: Connection
-        lateinit var connectCWithautDandHD2: Connection
-        lateinit var connectCWithautDandOL: Connection
-
-
-        connectHRandCAll = Connection(atomHR, atomCAll, Direction.right)
-        connectHTandCAll = Connection(atomHT, atomCAll, Direction.top)
-        connectHDandCAll = Connection(atomHD, atomCAll, Direction.dawn)
-        connectCWithautDandCAll =
-            Connection(atomCWithautDawn, atomCAll, Direction.left)
-        connectCWithautDandHD2 =
-            Connection(atomCWithautDawn, atomHD2, Direction.top)
-        connectCWithautDandOL =
-            Connection(atomCWithautDawn, atomOL, Direction.right)
-
-        atomHR.connections = arrayOf(connectHRandCAll)
-        atomHT.connections = arrayOf(connectHTandCAll)
-        atomHD.connections = arrayOf(connectHDandCAll)
-        atomHD2.connections = arrayOf(connectCWithautDandHD2)
-        atomOL.connections = arrayOf(connectCWithautDandOL)
-        atomCAll.connections = arrayOf(connectCWithautDandOL, connectHRandCAll, connectHTandCAll, connectHDandCAll)
-        atomCWithautDawn.connections = arrayOf(connectCWithautDandCAll, connectCWithautDandHD2, connectCWithautDandOL)
-
-//        listResult.clear()
-//        listResult.add(connectHRandCAll)
-//        listResult.add(connectHTandCAll)
-//        listResult.add(connectHDandCAll)
-//        listResult.add(connectCWithautDandCAll)
-//        listResult.add(connectCWithautDandHD2)
-//        listResult.add(connectCWithautDandOL)
-
-        listResultAtoms.add(atomHR          )
-        listResultAtoms.add(atomHT          )
-        listResultAtoms.add(atomHD          )
-        listResultAtoms.add(atomHD2         )
-        listResultAtoms.add(atomOL          )
-        listResultAtoms.add(atomCAll        )
-        listResultAtoms.add(atomCWithautDawn)
+        for(i in map.listConnection!!){
+            map.listResultAtoms.find { it == i.object1 }?.connections?.add(i)
+            map.listResultAtoms.find { it == i.object2 }?.connections?.add(i)
+        }
+        this.listResultAtoms = map.listResultAtoms
     }
 }
 

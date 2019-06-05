@@ -17,53 +17,21 @@ fun XY.toGlobalCoordinateXY(): XY =
 
 fun getArray(): ArrayList<ArrayList<Boolean>> {
     val array: ArrayList<ArrayList<Boolean>> = arrayListOf(
-        arrayListOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-        arrayListOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-        arrayListOf(
-            true,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            true
-        ),
-        arrayListOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-        arrayListOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
-        arrayListOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-        arrayListOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
-        arrayListOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-        arrayListOf(true, true, false, true, false, false, false, true, false, false, false, true, false, true, true),
-        arrayListOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-        arrayListOf(true, true, false, true, false, false, true, true, true, false, false, true, false, true, true),
-        arrayListOf(true, true, false, true, true, true, true, true, true, true, true, true, false, true, true),
-        arrayListOf(
-            true,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            true
-        ),
-        arrayListOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true),
-        arrayListOf(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)
+        arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,false,false,false,false,false,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,false,true,true,true,false,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,false,true,true,true,true,false,false,false,false,false,false,true,true,true),
+        arrayListOf(true,true,false,true,true,false,true,true,true,true,true,false,true,true,true),
+        arrayListOf(true,true,false,true,false,true,true,true,true,true,true,false,false,true,true),
+        arrayListOf(true,true,false,true,false,true,true,true,true,false,false,true,false,true,true),
+        arrayListOf(true,true,false,true,true,true,true,false,true,false,true,true,false,true,true),
+        arrayListOf(true,true,false,false,false,true,false,true,true,false,true,true,false,true,true),
+        arrayListOf(true,true,true,false,true,true,true,true,true,true,true,true,false,true,true),
+        arrayListOf(true,true,true,false,false,false,false,false,false,false,false,false,false,true,true),
+        arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+        arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true)
     )
 
     return array
