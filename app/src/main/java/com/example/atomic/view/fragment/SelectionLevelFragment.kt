@@ -20,8 +20,8 @@ class SelectionLevelFragment : Fragment() {
         val adapter = AdapterRecyclerviewMap(activity)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(
-            1,
-            LinearLayoutManager.HORIZONTAL
+            3,
+            LinearLayoutManager.VERTICAL
         )
         recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.adapter = adapter

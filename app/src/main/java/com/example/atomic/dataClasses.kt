@@ -71,13 +71,9 @@ enum class Levels(val numForLevel:Int) {
 
     },
     level_2(2) {
-        override fun getNameOfLevel(): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getNameOfLevel(): String = "acetaldehyde"
 
-        override fun getImage(): Int {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getImage(): Int = R.drawable.image_of_level_6
 
         override fun getInt(): Int =
             R.string.level_2
@@ -122,6 +118,8 @@ enum class Levels(val numForLevel:Int) {
 
     },
     level_6(6) {
+//        override fun getNumLevel(): Int = 6
+
         override fun getNameOfLevel(): String = "acetaldehyde"
 
         override fun getImage(): Int = R.drawable.image_of_level_6
@@ -132,7 +130,9 @@ enum class Levels(val numForLevel:Int) {
     };
 
     abstract fun getInt(): Int
+//    abstract fun getNumLevel(): Int
     abstract fun getImage(): Int
     abstract fun getNameOfLevel(): String
+
     fun getNumberOfLevels():Int = 6
 }

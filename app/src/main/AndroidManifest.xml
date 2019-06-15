@@ -8,6 +8,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-1459945936645861~1274435601"/>
 
         <activity android:name="com.example.atomic.view.activity.CentralAtcivity">
             <intent-filter>

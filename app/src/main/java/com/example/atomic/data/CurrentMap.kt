@@ -2,7 +2,6 @@ package com.example.atomic.data
 
 import com.example.atomic.*
 import com.example.atomic.Map
-import com.example.atomic.utils.getArray
 import kotlin.collections.ArrayList
 
 class CurrentMap : Map {
@@ -15,10 +14,11 @@ class CurrentMap : Map {
 
 
     var listVector: ArrayList<Vector> = ArrayList()
+    var numLevel: Int = 1
 
 
     fun isPassability(xy: XY): Boolean =
-        !(!getArray()[xy.y][xy.x] || listAtoms.find { it.xy.equals(xy) } != null)
+        !(!listPassibility[xy.y][xy.x] || listAtoms.find { it.xy.equals(xy) } != null)
 
     fun getFirstNoNPassabilityCAll(xy: XY, x: Int = 0, y: Int = 0): XY {
         for (i in 1..wh.x) {
@@ -37,7 +37,7 @@ class CurrentMap : Map {
             if (currentMap != null)
                 return currentMap!!
             currentMap = CurrentMap()
-            ChangeMap.changeLevel(Levels.level_6)
+            ChangeMap.changeLevel(Levels.level_2)
             return currentMap!!
 
         }
@@ -45,7 +45,7 @@ class CurrentMap : Map {
 //            if (currentMap != null)
 //                return currentMap!!
             val level = Levels.valueOf("level_$numLevel")
-            currentMap = CurrentMap()
+//            currentMap = CurrentMap()
             ChangeMap.changeLevel(level)
             return currentMap!!
 
@@ -53,7 +53,7 @@ class CurrentMap : Map {
 
     }
 
-    fun changeMap(map: Map){
+    fun changeMap(map: Map, level: Int){
         this.listPassibility = map.listPassibility
         this.listAtoms = map.listAtoms
         this.wh = map.wh
@@ -63,6 +63,7 @@ class CurrentMap : Map {
             map.listResultAtoms.find { it == i.object2 }?.connections?.add(i)
         }
         this.listResultAtoms = map.listResultAtoms
+        numLevel = level
     }
 }
 

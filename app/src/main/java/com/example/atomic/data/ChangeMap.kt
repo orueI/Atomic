@@ -8,7 +8,10 @@ import com.example.atomic.view.activity.MainActivity
 
 
 object ChangeMap {
-   private fun readJsonMap(levels: Levels): String = MainActivity.act.getString(levels.getInt())
+   private fun readJsonMap(levels: Levels): String = MainActivity.act.getString(
+//       R.string.level_4
+       levels.getInt()
+   )
 
     fun changeLevel( levels: Levels){
         val jsonLevel = readJsonMap(levels)
@@ -20,7 +23,7 @@ object ChangeMap {
         l(s.toString())
         val map: Map = s
 
-        CurrentMap.getCurrentMap().changeMap(map)
+        CurrentMap.getCurrentMap().changeMap(map,levels.numForLevel)
     }
 
 }

@@ -14,7 +14,7 @@ import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.*
 
 
-class MapView : MapViewPrimitives, View.OnTouchListener, InterfaceMapView {
+class MapView : MapViewPrimitives, InterfaceMapView, View.OnTouchListener{
 
     private lateinit var currentMap: CurrentMap
     private val logicClicks: InterfaceLogicClicks = LogicClicks(this)
@@ -46,13 +46,16 @@ class MapView : MapViewPrimitives, View.OnTouchListener, InterfaceMapView {
     }
 
     override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+        super.onDraw(canvas!!)
         setWH()
-        drawBackground(canvas!!)
+//        drawBackground(canvas!!)
 
         drawMap(canvas)
         drawAtoms(canvas)
         drawVectors(canvas)
+        drawBackgroundOfCells(canvas)
+
+//        drawExemple1Leve(canvas)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -74,7 +77,7 @@ class MapView : MapViewPrimitives, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawAtoms(canvas: Canvas) {
-        val list = currentMap.listAtoms
+        val list = CurrentMap.getCurrentMap().listAtoms
         val listResult = currentMap.listResultAtoms
         list.map {
             drawAtom(canvas, it)
@@ -85,7 +88,7 @@ class MapView : MapViewPrimitives, View.OnTouchListener, InterfaceMapView {
     }
 
     private fun drawVectors(canvas: Canvas) {
-        val list = currentMap.listVector
+        val list = CurrentMap.getCurrentMap().listVector
         if (list.size > 0)
             for(i in list)
                 drawVector(canvas, i)
@@ -95,4 +98,13 @@ class MapView : MapViewPrimitives, View.OnTouchListener, InterfaceMapView {
         invalidate()
     }
 
+
+
+
+
+//    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    fun drawExemple1Leve(canvas: Canvas){
+    drawAtom(canvas,Atom(TypeAtom.H, arrayOf(Direction.right),1,XY(2,17)))
+    drawAtom(canvas,Atom(TypeAtom.H, arrayOf(Direction.left),1,XY(3,17)))
+}
 }
