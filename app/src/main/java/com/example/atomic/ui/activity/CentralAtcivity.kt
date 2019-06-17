@@ -1,14 +1,12 @@
-package com.example.atomic.view.activity
+package com.example.atomic.ui.activity
 
 import android.app.Fragment
-import android.app.FragmentManager
-import android.app.FragmentTransaction
 import android.content.Intent
 import android.os.Bundle
 import com.example.atomic.R
 import com.example.atomic.common.BaseActivity
-import com.example.atomic.view.fragment.BeginningFragment
-import com.example.atomic.view.fragment.SelectionLevelFragment
+import com.example.atomic.ui.fragment.BeginningFragment
+import com.example.atomic.ui.fragment.SelectionLevelFragment
 
 
 class CentralAtcivity : BaseActivity() {

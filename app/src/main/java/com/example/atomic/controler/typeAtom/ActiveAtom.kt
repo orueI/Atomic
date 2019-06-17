@@ -7,8 +7,8 @@ import com.example.atomic.XY
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.utils.l
-import com.example.atomic.view.activity.MainActivity.Companion.mInterstitialAd
-import com.example.atomic.view.activity.MainActivity.Companion.start
+import com.example.atomic.ui.activity.MainActivity.Companion.mInterstitialAd
+import com.example.atomic.ui.activity.MainActivity.Companion.start
 import com.google.android.gms.ads.AdRequest
 
 

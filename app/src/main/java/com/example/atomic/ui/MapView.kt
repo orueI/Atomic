@@ -1,4 +1,4 @@
-package com.example.atomic.view
+package com.example.atomic.ui
 
 import android.content.Context
 import android.graphics.*

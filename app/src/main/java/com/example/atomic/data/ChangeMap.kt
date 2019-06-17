@@ -4,7 +4,7 @@ import com.example.atomic.*
 import com.example.atomic.Map
 import com.google.gson.GsonBuilder
 import com.example.atomic.utils.l
-import com.example.atomic.view.activity.MainActivity
+import com.example.atomic.ui.activity.MainActivity
 
 
 object ChangeMap {

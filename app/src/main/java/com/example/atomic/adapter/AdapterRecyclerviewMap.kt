@@ -4,14 +4,14 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.atomic.Levels
 import com.example.atomic.R
 import com.example.atomic.utils.l
-import com.example.atomic.view.activity.CentralAtcivity
+import com.example.atomic.ui.activity.CentralAtcivity
 
 class AdapterRecyclerviewMap : RecyclerView.Adapter<AdapterRecyclerviewMap.MyViewHolder> {
     lateinit var activity:Activity
@@ -27,11 +27,11 @@ class AdapterRecyclerviewMap : RecyclerView.Adapter<AdapterRecyclerviewMap.MyVie
         return MyViewHolder(v,activity)
     }
 
-    override fun getItemCount(): Int = Levels.level_1.getNumberOfLevels()
+    override fun getItemCount(): Int = Levels.level_1.getQuantityLevels()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.imageLevel.setImageResource(Levels.level_6.getImage())
-//        holder.nameLevel.text = Levels.level_6.getNameOfLevel()
+//        holder.imageLevel.setImageResource(Levels.level_6.getImage())
+        holder.nameLevel.text = "   ${Levels.valueOf("level_${position+1}").getNameOfLevel()}   "
         holder.numLevel = position+1
     }
 
@@ -44,9 +44,9 @@ class AdapterRecyclerviewMap : RecyclerView.Adapter<AdapterRecyclerviewMap.MyVie
             l("next Level")
         }
 
-        var layout: LinearLayout
-//        var nameLevel: TextView
-        var imageLevel: ImageView
+        var layout: RelativeLayout
+        var nameLevel: TextView
+//        var imageLevel: ImageView
         var numLevel: Int = 1
 
 
@@ -54,8 +54,8 @@ class AdapterRecyclerviewMap : RecyclerView.Adapter<AdapterRecyclerviewMap.MyVie
             this.activity = activity
 
             layout = itemView.findViewById(R.id.layout)
-//            nameLevel = itemView.findViewById(R.id.nameLevel)
-            imageLevel = itemView.findViewById(R.id.imageLevel)
+            nameLevel = itemView.findViewById(R.id.nameLevel)
+//            imageLevel = itemView.findViewById(R.id.imageLevel)
 
             layout.setOnClickListener(this)
         }

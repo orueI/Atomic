@@ -58,9 +58,7 @@ enum class TypeAtom { H, C, O }
 
 enum class Levels(val numForLevel:Int) {
     level_1(1) {
-        override fun getNameOfLevel(): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getNameOfLevel(): String = "Hydrogenium"
 
         override fun getImage(): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -71,17 +69,15 @@ enum class Levels(val numForLevel:Int) {
 
     },
     level_2(2) {
-        override fun getNameOfLevel(): String = "acetaldehyde"
+        override fun getNameOfLevel(): String = "Hydrogen oxide"
 
-        override fun getImage(): Int = R.drawable.image_of_level_6
+        override fun getImage(): Int = R.drawable.image_of_level_5
 
         override fun getInt(): Int =
             R.string.level_2
     },
     level_3(3) {
-        override fun getNameOfLevel(): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getNameOfLevel(): String = "Methanum"
 
         override fun getImage(): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -92,9 +88,7 @@ enum class Levels(val numForLevel:Int) {
 
     },
     level_4(4) {
-        override fun getNameOfLevel(): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getNameOfLevel(): String = "Methanol"
 
         override fun getImage(): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -105,34 +99,18 @@ enum class Levels(val numForLevel:Int) {
 
     },
     level_5(5) {
-        override fun getNameOfLevel(): String {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getNameOfLevel(): String = "Acetaldehyde"
 
-        override fun getImage(): Int {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+        override fun getImage(): Int = R.drawable.image_of_level_5
 
         override fun getInt(): Int =
             R.string.level_5
 
-    },
-    level_6(6) {
-//        override fun getNumLevel(): Int = 6
-
-        override fun getNameOfLevel(): String = "acetaldehyde"
-
-        override fun getImage(): Int = R.drawable.image_of_level_6
-
-        override fun getInt(): Int =
-            R.string.level_6
-
     };
 
     abstract fun getInt(): Int
-//    abstract fun getNumLevel(): Int
     abstract fun getImage(): Int
     abstract fun getNameOfLevel(): String
 
-    fun getNumberOfLevels():Int = 6
+    fun getQuantityLevels():Int = 5
 }

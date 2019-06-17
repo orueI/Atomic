@@ -12,14 +12,14 @@
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="ca-app-pub-1459945936645861~1274435601"/>
 
-        <activity android:name="com.example.atomic.view.activity.CentralAtcivity">
+        <activity android:name="com.example.atomic.ui.activity.CentralAtcivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.atomic.view.activity.MainActivity"/>
+        <activity android:name="com.example.atomic.ui.activity.MainActivity"/>
 
     </application>
 

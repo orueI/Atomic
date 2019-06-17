@@ -1,4 +1,4 @@
-package com.example.atomic.view.fragment
+package com.example.atomic.ui.fragment
 
 import android.app.Fragment
 import android.os.Bundle
@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.example.atomic.R
-import com.example.atomic.view.activity.CentralAtcivity
-import com.example.atomic.view.activity.MainActivity
-import kotlinx.android.synthetic.main.fragment_beginning.*
+import com.example.atomic.ui.activity.CentralAtcivity
 
 class BeginningFragment: Fragment(),View.OnClickListener {
 

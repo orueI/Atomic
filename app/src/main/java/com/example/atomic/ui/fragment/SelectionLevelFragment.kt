@@ -1,4 +1,4 @@
-package com.example.atomic.view.fragment
+package com.example.atomic.ui.fragment
 
 import android.app.Fragment
 import android.os.Bundle
@@ -20,8 +20,8 @@ class SelectionLevelFragment : Fragment() {
         val adapter = AdapterRecyclerviewMap(activity)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(
-            3,
-            LinearLayoutManager.VERTICAL
+            2,
+            LinearLayoutManager.HORIZONTAL
         )
         recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.adapter = adapter

@@ -6,8 +6,8 @@ import com.example.atomic.controler.typeAtom.PassiveAtom
 import com.example.atomic.data.CurrentMap
 import com.example.atomic.interfaces.InterfaceLogicClicks
 import com.example.atomic.interfaces.InterfaceMapView
-import com.example.atomic.view.MapView.Companion.sideOfSquare
-import com.example.atomic.view.MapView.Companion.widthOfFields
+import com.example.atomic.ui.MapView.Companion.sideOfSquare
+import com.example.atomic.ui.MapView.Companion.widthOfFields
 
 class LogicClicks: InterfaceLogicClicks {
 

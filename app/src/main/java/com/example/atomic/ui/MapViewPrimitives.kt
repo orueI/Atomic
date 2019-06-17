@@ -1,18 +1,15 @@
-package com.example.atomic.view
+package com.example.atomic.ui
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import com.example.atomic.Atom
 import com.example.atomic.Vector
 import com.example.atomic.XY
-import com.example.atomic.utils.l
 import com.example.atomic.utils.toGlobalCoordinate
-import com.example.atomic.view.MapView
-import com.example.atomic.view.MapView.Companion.sideOfSquare
-import com.example.atomic.view.MapView.Companion.widthOfFields
+import com.example.atomic.ui.MapView.Companion.sideOfSquare
+import com.example.atomic.ui.MapView.Companion.widthOfFields
 
 open class MapViewPrimitives : View {
 
