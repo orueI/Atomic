@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 start()
             }
         }
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
         val numLevel = intent.getIntExtra("level", 1)
         CurrentMap.getCurrentMap(numLevel)
 

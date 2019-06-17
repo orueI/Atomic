@@ -42,10 +42,10 @@ class ActiveAtom {
         }
         map.listVector = ArrayList()
         if (chackResalt(vector.atom)) {
-            mInterstitialAd.loadAd(AdRequest.Builder().build())
             l("You are right!")
             if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
                 mInterstitialAd?.show()
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
             } else {
                 start()
                 l("The interstitial wasn't loaded yet.")
