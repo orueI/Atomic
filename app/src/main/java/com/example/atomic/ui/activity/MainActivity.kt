@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.atomic.*
 import com.example.atomic.data.CurrentMap
+import com.example.atomic.utils.l
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this, "ca-app-pub-1459945936645861~1274435601" )
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd!!.adUnitId =
-            "ca-app-pub-3940256099942544/1033173712"
+            "ca-app-pub-1459945936645861/9090056883"
 //            getString(R.string.ad_unit_id)
 
         mInterstitialAd!!.adListener = object : AdListener() {
@@ -46,11 +47,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAdFailedToLoad(errorCode: Int) {
-                Toast.makeText(
-                    baseContext,
-                    "onAdFailedToLoad() with error code: $errorCode",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    baseContext,
+//                    "onAdFailedToLoad() with error code: $errorCode",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                l("onAdFailedToLoad() with error code: $errorCode")
             }
 
             override fun onAdClosed() {

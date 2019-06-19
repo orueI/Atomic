@@ -57,6 +57,7 @@ class CurrentMap : Map {
         this.listPassibility = map.listPassibility
         this.listAtoms = map.listAtoms
         this.wh = map.wh
+        listVector = ArrayList()
 
         for(i in map.listConnection!!){
             map.listResultAtoms.find { it == i.object1 }?.connections?.add(i)

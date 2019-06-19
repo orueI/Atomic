@@ -41,39 +41,40 @@ class ActiveAtom {
             }
         }
         map.listVector = ArrayList()
-        if (chackResalt(vector.atom)) {
-            l("You are right!")
-            if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
-                mInterstitialAd?.show()
-                mInterstitialAd.loadAd(AdRequest.Builder().build())
-            } else {
-                start()
-                l("The interstitial wasn't loaded yet.")
-
-            }
-            CurrentMap.getCurrentMap(CurrentMap.getCurrentMap().numLevel + 1)
-        } else {
-            PassiveAtom(view).clickOnAtom(vector.atom)
-        }
+//            levelPassed()
+        PassiveAtom(view).clickOnAtom(vector.atom)
+        chackResalt(vector.atom)
         view.render()
     }
 
-    fun chackResalt(realAtom: Atom): Boolean {
+    private fun levelPassed() {
+        l("You are right!")
+
+        if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
+            mInterstitialAd?.show()
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+        } else {
+            start()
+            l("The interstitial wasn't loaded yet.")
+
+        }
+        CurrentMap.getCurrentMap(CurrentMap.getCurrentMap().numLevel + 1)
+    }
+
+    fun chackResalt(realAtom: Atom) {
         val map = CurrentMap.getCurrentMap()
         checkedList = ArrayList()
 
         for (needAtom in map.listResultAtoms) {
             if (needAtom.type == realAtom.type && needAtom.vectorConnects.contentEquals(realAtom.vectorConnects)) {
                 checkedList = ArrayList()
-                return checkAtom1(realAtom, needAtom)
+                checkAtom(realAtom, needAtom)
             }
         }
-        return false
     }
 
-    private fun checkAtom1(realAtom: Atom, needAtom: Atom): Boolean {
+    private fun checkAtom(realAtom: Atom, needAtom: Atom) {
         val map = CurrentMap.getCurrentMap()
-//        checkedList = ArrayList()
 
         if (checkedList.find { it.equals(realAtom) } == null) {
             checkedList.add(realAtom)
@@ -85,14 +86,15 @@ class ActiveAtom {
                         checkingAtomNeed.vectorConnects
                     )
                 ) {
-                    checkAtom1(checkingAtom, checkingAtomNeed)
-                } else {
-                    return false
+                    checkAtom(checkingAtom, checkingAtomNeed)
                 }
             }
-        } else
-            return true
-        return true
+        } else{
+            if(checkedList.size == map.listResultAtoms.size) {
+                levelPassed()
+
+            }
+        }
     }
 
     fun otherAtomInConnection(needAtom: Atom, vector: Direction, list: ArrayList<Atom>): Atom? =
