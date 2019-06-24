@@ -1,6 +1,7 @@
 package com.example.atomic.ui.fragment
 
 import android.app.Fragment
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +24,10 @@ class SelectionLevelFragment : Fragment() {
             2,
             LinearLayoutManager.HORIZONTAL
         )
+
         recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.adapter = adapter
+
 
         return view
     }

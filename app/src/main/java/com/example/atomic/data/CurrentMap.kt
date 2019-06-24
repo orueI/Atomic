@@ -37,23 +37,17 @@ class CurrentMap : Map {
             if (currentMap != null)
                 return currentMap!!
             currentMap = CurrentMap()
-            ChangeMap.changeLevel(Levels.level_2)
+            ChangeMap.changeLevel(Levels.level_1)
             return currentMap!!
-
         }
-        fun getCurrentMap(numLevel:Int): CurrentMap {
-//            if (currentMap != null)
-//                return currentMap!!
+        fun getCurrentMap(numLevel:Int) {
             val level = Levels.valueOf("level_$numLevel")
-//            currentMap = CurrentMap()
             ChangeMap.changeLevel(level)
-            return currentMap!!
-
         }
 
     }
 
-    fun changeMap(map: Map, level: Int){
+    fun setMap(map: Map, level: Int){
         this.listPassibility = map.listPassibility
         this.listAtoms = map.listAtoms
         this.wh = map.wh

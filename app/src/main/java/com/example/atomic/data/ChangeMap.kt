@@ -23,7 +23,7 @@ object ChangeMap {
         l(s.toString())
         val map: Map = s
 
-        CurrentMap.getCurrentMap().changeMap(map,levels.numForLevel)
+        CurrentMap.getCurrentMap().setMap(map,levels.numForLevel)
     }
 
 }

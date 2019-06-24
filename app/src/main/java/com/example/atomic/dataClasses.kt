@@ -7,8 +7,6 @@ open class Cell(
     var xy: XY
 )
 
-class Wall(var passability: Boolean, id: Int, xy: XY) : Cell(id, xy)// passability = true - пусто
-
 class Atom(
     val type: TypeAtom,
     val vectorConnects: Array<Direction>,

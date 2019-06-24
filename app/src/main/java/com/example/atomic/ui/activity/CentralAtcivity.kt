@@ -1,18 +1,19 @@
 package com.example.atomic.ui.activity
 
+import android.app.Activity
 import android.app.Fragment
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import com.example.atomic.R
-import com.example.atomic.common.BaseActivity
 import com.example.atomic.ui.fragment.BeginningFragment
 import com.example.atomic.ui.fragment.SelectionLevelFragment
 
 
-class CentralAtcivity : BaseActivity() {
+class CentralAtcivity : Activity() {
 
-    val beginningF = BeginningFragment()
-    val selectionF = SelectionLevelFragment()
+    val beginningFragment = BeginningFragment()
+    val selectionFragment = SelectionLevelFragment()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +22,9 @@ class CentralAtcivity : BaseActivity() {
 
         val fTransaction = getFragmentManager().beginTransaction()
         fTransaction
-            .add(R.id.container, beginningF)
-            .add(R.id.container, selectionF)
-            .show(beginningF)
+            .add(R.id.container, beginningFragment)
+            .add(R.id.container, selectionFragment)
+            .show(beginningFragment)
             .commit()
     }
 
@@ -35,7 +36,11 @@ class CentralAtcivity : BaseActivity() {
     }
 
     fun changeActivity(int: Int){
-//val intent = Intent()
+        val pd = ProgressDialog(this)
+        pd.setMessage("Loading of level");
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.isIndeterminate = true;
+        pd.show();
         val intent = Intent(this@CentralAtcivity, MainActivity::class.java)
         intent.putExtra("level",int)
         startActivity(intent)

@@ -8,6 +8,7 @@ import com.example.atomic.interfaces.InterfaceLogicClicks
 import com.example.atomic.interfaces.InterfaceMapView
 import com.example.atomic.ui.MapView.Companion.sideOfSquare
 import com.example.atomic.ui.MapView.Companion.widthOfFields
+import com.example.atomic.utils.fromGlobal
 
 class LogicClicks: InterfaceLogicClicks {
 
@@ -32,19 +33,5 @@ class LogicClicks: InterfaceLogicClicks {
             if (it.xy.equals(XY(width, height)))
                 activeAtom.clickOnVector(it)
         }
-
-//        val atom :Atom= map.listAtoms.find { it.xy.equals(XY(width,height)) }?:return
-//            passiveAtom.clickOnAtom(atom)
-
-    }
-
-    private fun fromGlobal(
-        xy: XY
-    ): Triple<CurrentMap, Int, Int> {
-        val map = CurrentMap.getCurrentMap()
-        val sAndW = sideOfSquare + widthOfFields
-        val width = xy.x / sAndW
-        val height = xy.y / sAndW
-        return Triple(map, width, height)
     }
 }

@@ -28,7 +28,6 @@ class PassiveAtom {
                 Vector(
                     atom, Direction.left, 12,
                     leftElement
-//            XY(1,5)
                 )
             )
 
@@ -37,7 +36,6 @@ class PassiveAtom {
                 Vector(
                     atom, Direction.right, 12,
                     rightElement
-//            XY(3,5)
                 )
             )
 
@@ -46,7 +44,6 @@ class PassiveAtom {
                 Vector(
                     atom, Direction.top, 12,
                     topElement
-//            XY(2,4)
                 )
             )
         if (map.isPassability(downElement))
@@ -54,7 +51,6 @@ class PassiveAtom {
                 Vector(
                     atom, Direction.dawn, 12,
                     downElement
-//            XY(2,6)
                 )
             )
 

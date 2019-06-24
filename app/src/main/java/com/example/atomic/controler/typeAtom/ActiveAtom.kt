@@ -41,7 +41,6 @@ class ActiveAtom {
             }
         }
         map.listVector = ArrayList()
-//            levelPassed()
         PassiveAtom(view).clickOnAtom(vector.atom)
         chackResalt(vector.atom)
         view.render()
@@ -49,14 +48,12 @@ class ActiveAtom {
 
     private fun levelPassed() {
         l("You are right!")
-
         if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
             mInterstitialAd.loadAd(AdRequest.Builder().build())
         } else {
             start()
             l("The interstitial wasn't loaded yet.")
-
         }
         CurrentMap.getCurrentMap(CurrentMap.getCurrentMap().numLevel + 1)
     }

@@ -26,12 +26,10 @@ class MapView : MapViewPrimitives, InterfaceMapView, View.OnTouchListener{
 
     constructor(context: Context?) : super(context) {
         init()
-
     }
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         init()
-
     }
 
     private fun init() {
@@ -48,14 +46,11 @@ class MapView : MapViewPrimitives, InterfaceMapView, View.OnTouchListener{
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas!!)
         setWH()
-//        drawBackground(canvas!!)
 
         drawMap(canvas)
         drawAtoms(canvas)
         drawVectors(canvas)
         drawBackgroundOfCells(canvas)
-
-//        drawExemple1Leve(canvas)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -97,14 +92,4 @@ class MapView : MapViewPrimitives, InterfaceMapView, View.OnTouchListener{
     override fun render() {
         invalidate()
     }
-
-
-
-
-
-//    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    fun drawExemple1Leve(canvas: Canvas){
-    drawAtom(canvas,Atom(TypeAtom.H, arrayOf(Direction.right),1,XY(2,17)))
-    drawAtom(canvas,Atom(TypeAtom.H, arrayOf(Direction.left),1,XY(3,17)))
-}
 }

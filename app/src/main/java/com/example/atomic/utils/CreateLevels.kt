@@ -36,6 +36,27 @@ class CreateLevels {
 //        list.add(Connection(lA[0],lA[1],Direction.right))
         return list
     }
+    fun getArray(): ArrayList<ArrayList<Boolean>> {
+        val array: ArrayList<ArrayList<Boolean>> = arrayListOf(
+            arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+            arrayListOf(true,true,true,true,true,true,false,false,false,false,false,true,true,true,true),
+            arrayListOf(true,true,true,true,true,true,false,true,true,true,false,true,true,true,true),
+            arrayListOf(true,true,false ,false,false,false,false,true,false,true,false,true,true,true,true),
+            arrayListOf(true,true,false,true,true,true,true,true,true,true,false,true,true,true,true),
+            arrayListOf(true,true,false,false,false,true,true,true,true,false,false,true,true,true,true),
+            arrayListOf(true,true,true,true,false,true,false,true,false,true,false,false,false,true,true),
+            arrayListOf(true,true,true,true,false,false,true,true,true,true,false,true,false,true,true),
+            arrayListOf(true,false,false,false,false,true,true,true,true,true,true,true,false,true,true),
+            arrayListOf(true,false,true,true,true,true,true,true,false,true,true,true,false,true,true),
+            arrayListOf(true,false,false,false,false,false,true,false,true,true,false,true,false,true,true),
+            arrayListOf(true,true,true,true,false,true,true,true,true,false,true,true,false,true,true),
+            arrayListOf(true,true,true,true,false,false,false,false,false,false,false,false,false,true,true),
+            arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+            arrayListOf(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true)
+        )
+
+        return array
+    }
 
     fun getLevel():Map{
         return Map(

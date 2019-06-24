@@ -16,15 +16,16 @@ class BeginningFragment: Fragment(),View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_beginning, container, false)
+
         view.findViewById<Button>(R.id.map_selection).setOnClickListener(this)
         return view
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.map_selection ->{
+            R.id.map_selection ->
                 (activity as CentralAtcivity).changeFragment(SelectionLevelFragment())
-            }
+
         }
     }
 }
